@@ -1,4 +1,4 @@
 
 ### ER-DIAGRAM
 
-![ER diagram!](/public/images/ER_diagram.png "ER DIAGRAM")
+![ER diagram!](/public/images/ERDiagram.png "ER DIAGRAM")
