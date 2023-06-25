@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 import '../../App.css'
 
-const RegisterForm = () => {
+const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
     <div className="register-form-container">
-      <h2>Registration</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="userId">User ID</label>
@@ -35,21 +35,10 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            className="form-control"
-            placeholder="Confirm Password"
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
