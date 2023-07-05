@@ -1,11 +1,49 @@
-import React, { useState } from "react";
-
+import React, { useContext } from "react";
+import { fetchData } from "../../main";
 import '../../App.css'
+import UserContext from "../../context/userContext.js";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const navigate=useNavigate();
+
+  const {user, updateUser} = useContext(UserContext);
+
+  const {username, password, password2} = user;  
+
+  const onChange = (e) => updateUser(e.target.name, e.target.value)
+
+  // const [user, setUser] = useState({
+  //   username:'',
+  //   password:'',
+  //   password2:'',
+  // });
+
+  // const {username, password, password2} = user;  
+
+  // const onChange = (e) => setUser({...user,[e.target.name]:e.target.value});
+
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
+
+    fetchData("/user/register", 
+      {
+       username,
+       password,
+       password2
+      }, 
+      "POST")
+    .then((data) => {
+      if(!data.message) {
+        navigate("/profile");
+        console.log(data)
+      }
+    })  
+    .catch((error) => {
+      console.log(error)
+    })
+
+  }
 
   return (
     <div className="register-form-container">
@@ -15,10 +53,12 @@ const RegisterForm = () => {
           <label htmlFor="userId">User ID</label>
           <input
             type="text"
-            id="userId"
-            name="userId"
+            id="username"
+            name="username"
             className="form-control"
             placeholder="Enter User ID"
+            onChange={onChange}
+            value={username}
             required
           />
         </div>
@@ -28,10 +68,10 @@ const RegisterForm = () => {
             type="password"
             id="password"
             name="password"
-            // value={password}
-            // onChange={handleChange}
             className="form-control"
             placeholder="Enter Password"
+            onChange={onChange}
+            value={password}
             required
           />
         </div>
@@ -39,10 +79,12 @@ const RegisterForm = () => {
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
-            id="confirmPassword"
-            name="confirmPassword"
+            id="password2"
+            name="password2"
             className="form-control"
             placeholder="Confirm Password"
+            onChange={onChange}
+            value={password2}
             required
           />
         </div>
