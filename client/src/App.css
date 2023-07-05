@@ -113,3 +113,15 @@
   padding: 8px;
   font-size: 16px;
 }
+/* profile page */
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+label {
+  display: block;
+  font-weight: bold;
+}

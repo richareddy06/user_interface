@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,Outlet } from "react-router-dom";
 import '../../App.css'
 const Navbar = () => {
   return (
+    <div>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
        
@@ -21,6 +22,8 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    <Outlet/>
+    </div>
   );
 };
 

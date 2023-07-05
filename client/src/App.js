@@ -1,25 +1,27 @@
 import Navbar from './components/pages/Navbar';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,Routes, Route } from "react-router-dom";
 import './App.css';
 import RegisterForm from './components/pages/Register';
 import LoginForm from './components/pages/Login';
+import Profile from './components/pages/Profile';
+import { UserProvider } from './context/userContext';
 
 function App() {
   return (
 
-    <BrowserRouter>
     <div className="App">
-      <Navbar></Navbar><br></br>
-      <br></br>
-      <br></br>
-      
-      <RegisterForm></RegisterForm>
-      <br></br><br></br>
-      <br></br>
-      
-      <LoginForm></LoginForm>
+       <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navbar />}>
+            <Route path="login" element={<LoginForm />} />
+            <Route path="register" element={<RegisterForm />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      </UserProvider>
     </div>
-    </BrowserRouter>
   );
 }
 

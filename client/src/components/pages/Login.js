@@ -1,11 +1,43 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { fetchData } from "../../main";
+import '../../App.css'
+import UserContext from "../../context/userContext.js";
+import { useNavigate } from "react-router-dom";
 
 import '../../App.css'
 
 const LoginForm = () => {
+  
+  const navigate=useNavigate();
+
+  const {user, updateUser} = useContext(UserContext);
+
+  const {username, password} = user; 
+  
+  
+  const onChange = (e) => updateUser(e.target.name, e.target.value)
+
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
+    // const userid=username
+    fetchData("/user/login", 
+      {
+        username,
+       password
+      }, 
+      "POST")
+    .then((data) => {
+      if(!data.message) {
+        navigate("/profile");
+        console.log(data)
+      }
+    })  
+    .catch((error) => {
+      console.log(error)
+    })
+
+  }
+
 
   return (
     <div className="register-form-container">
@@ -15,10 +47,12 @@ const LoginForm = () => {
           <label htmlFor="userId">User ID</label>
           <input
             type="text"
-            id="userId"
-            name="userId"
+            id="username"
+            name="username"
             className="form-control"
             placeholder="Enter User ID"
+            value={username}
+            onChange={onChange}
             required
           />
         </div>
@@ -28,10 +62,10 @@ const LoginForm = () => {
             type="password"
             id="password"
             name="password"
-            // value={password}
-            // onChange={handleChange}
+            value={password}
             className="form-control"
             placeholder="Enter Password"
+            onChange={onChange}
             required
           />
         </div>
